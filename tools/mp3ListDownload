@@ -1,6 +1,19 @@
 #!/bin/bash
 
-clear && sudo youtube-dl --yes-playlist --extract-audio --audio-format mp3 $1
+if test -f /usr/local/bin/youtube-dl; then
+	echo -e "youtube-dl is installed"
+else
+	i=$(echo $program | cut -d '/' -f 4)
+		echo -e "\n$i will be installed"
+		sudo apt-get install $i -y
+fi
 
+if test -z "$1"
+then
+      echo "You need to add the youtube link"
+else
+      echo "Read to install"
+      clear && sudo youtube-dl --yes-playlist --extract-audio --audio-format mp3 $1
+fi
 exit 1
 
