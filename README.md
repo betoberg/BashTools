@@ -8,6 +8,7 @@
 sudo chmod +x beontop
 sudo cp -rfv beontop /bin
 ```
+
 Note: 
 Now just press the b + TAB + ENTER. Your system will be super, hiper , mega updated. 
 
