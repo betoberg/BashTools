@@ -9,8 +9,8 @@ sudo chmod +x beontop
 sudo cp -rfv beontop /bin
 ```
 
-Note: 
-Now just press the b + TAB + ENTER. Your system will be super, hiper , mega updated. 
+>***Note:*** 
+Now, just press the b + TAB + ENTER. Your system will be super, hiper , mega updated. 
 
 2) mp3ListDownload
 sudo chmod +x mp3ListDownload
