@@ -19,7 +19,7 @@ sudo cp -rfv mp3ListDownload /bin
 ```
 
 >***Note:*** 
-Now just press the mp3L + TAB + link for a single youtube or list of videos. 
-It will download as mp3 for your.
+Now just press the mp3L + TAB + link for a [single | list ] of youtube videos. 
+It will download as mp3 for your at your home.
 
 
