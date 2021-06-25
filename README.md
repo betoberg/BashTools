@@ -3,14 +3,14 @@
 #Tools for Ubuntu users!
 ========================
 
-1. beontop
+1) beontop
 sudo chmod +x beontop
 sudo cp -rfv beontop /bin
 
 Note: 
 Now just press the b + TAB + ENTER. Your system will be super, hiper , mega updated. 
 
-2. mp3ListDownload
+2) mp3ListDownload
 sudo chmod +x mp3ListDownload
 sudo cp -rfv mp3ListDownload /bin
 
