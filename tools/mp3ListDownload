@@ -4,14 +4,22 @@
 if test -f /usr/local/bin/youtube-dl; then
 	echo -e "youtube-dl is installed"
 else
-	prgInst=(youtube-dl)
-	for program in ${prgInst[*]}
-		do
 
-			i=$(echo $program | cut -d '/' -f 4)
-			echo -e "\n$i will be installed"
-			sudo apt-get install $i -y
-		done	
+#!/bin/bash
+# Para referencia:
+# https://ytdl-org.github.io/youtube-dl/download.html
+
+#instalar dependencias aqui
+clear
+echo "INSTALANDO DEPENDENCIAS SE FOR NECESSARIO"
+echo -e "-----------------------------------------\n"
+sudo apt-get update -y && sudo apt-get install python3-venv python3-pip && sudo -H pip3 install --upgrade youtube-dl && sudo apt-get install ffmpeg -y
+
+echo -e "\nEXECUTANDO O DOWNLOAD DO VIDEO E TRANSFORMANDO EM MP3"
+echo -e "-----------------------------------------------------\n"
+sudo youtube-dl --yes-playlist --extract-audio --audio-format mp3 $1
+
+exit 1
 fi
 
 #This condition will verify if there is a youtube link to download.
@@ -24,4 +32,3 @@ else
 fi
 
 exit 1
-
