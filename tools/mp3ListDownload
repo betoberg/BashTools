@@ -4,9 +4,14 @@
 if test -f /usr/local/bin/youtube-dl; then
 	echo -e "youtube-dl is installed"
 else
-	i=$(echo $program | cut -d '/' -f 4)
-		echo -e "\n$i will be installed"
-		sudo apt-get install $i -y
+	prgInst=(youtube-dl)
+	for program in ${prgInst[*]}
+		do
+
+			i=$(echo $program | cut -d '/' -f 4)
+			echo -e "\n$i will be installed"
+			sudo apt-get install $i -y
+		done	
 fi
 
 #This condition will verify if there is a youtube link to download.
