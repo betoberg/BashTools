@@ -2,4 +2,5 @@
 
 echo -e "\n\nLet's update the system!\n\n"
 
-sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y && sudo apt-get clean -y && sudo swapoff -av
+sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y && sudo apt-get clean -y && sudo swapoff -av && && sudo fstrim -v /
+
