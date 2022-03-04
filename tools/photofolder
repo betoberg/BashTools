@@ -1,0 +1,97 @@
+#!/bin/bash
+# ------ Instala dependencias ------
+sudo apt-get install rename -y
+
+# ------ Variables to grab the date from the name of the photos to put it in folders nemed with the good date. ------ 
+RE8d='^[0-9]{8}'
+RE='[0-9]{4}\-[0-9]{2}\-[0-9]{2}'
+
+# ------ RENAME FILES TAKING OFF THE NAME: COPY ------
+rename -v 's/\ \(copy\)//' ./* 
+
+# ------ RENAME FILES TAKING OFF THE NAME: screenshot, from, VID_, etc ------
+find -name "* *" -type d | rename 's/ /_/g'    # do the directories first
+find -name "* *" -type f | rename 's/ /_/g'
+
+rename -v 's/Screenshot_//' ./*
+rename -v 's/Screenshot_from_//' ./*
+rename -v 's/from_//' ./*
+rename -v 's/VID-//' ./*
+rename -v 's/VID_//' ./*
+rename -v 's/img-//' ./*
+rename -v 's/img_//' ./*
+rename -v 's/IMG-//' ./*
+rename -v 's/IMG_//' ./*
+rename -v 's/image_//' ./*
+rename -v 's/image-//' ./*
+rename -v 's/received_//' ./*
+rename -v 's/received-//' ./*
+rename -v 's/video_//' ./*
+rename -v 's/video-//' ./*
+rename -v 's/photo-//' ./*
+rename -v 's/photo_//' ./*
+rename -v 's/photos-//' ./*
+rename -v 's/photos_//' ./*
+
+# ------ LISTA DE ARQUIVOS E PASTAS ------
+ls -1 > list.txt
+
+# ------ VERIFICA EM CADA ARQUIVO ------
+while read LINE
+do 
+
+# ------ IF IT STARTS WITH 8 NUMBERS (DATE) ------
+if [[ $LINE =~ $RE8d ]] ; then
+
+# ------ IT WILL TAKE THE FIRST 8 NUMBERS FROM THE FILE AND SET UP AS DATE ------
+DATE_FROM_FILENAME=$(echo $LINE | cut -c1-8)
+YEAR=$(echo $DATE_FROM_FILENAME | cut -c1-4)
+MONTH=$(echo $DATE_FROM_FILENAME | cut -c5-6)
+DAY=$(echo $DATE_FROM_FILENAME | cut -c7-8)
+
+# ------ IT CREATE FOLDERS NAMED WITH THE DATE AND THEN PASSED THE FILES INTO THE FOLDERS ------
+[ -z $DATE_FROM_FILENAME ] || mkdir $YEAR-$MONTH-$DAY ; mv $LINE $YEAR-$MONTH-$DAY
+
+fi
+
+# ------ RENAME FILES STARTED WITH yyyy-mm-dd ------
+if [[ $LINE =~ $RE ]]; then 
+if [ -f "$LINE" ]; then
+DATE_FROM_FILENAME=$(echo $LINE | cut -c1-10)
+YEAR=$(echo $DATE_FROM_FILENAME | cut -c1-4)
+MONTH=$(echo $DATE_FROM_FILENAME | cut -c6-7)
+DAY=$(echo $DATE_FROM_FILENAME | cut -c9-10)
+
+# ------  IT CREATE FOLDERS NAMED WITH THE DATE AND THEN PASSED THE FILES INTO THE FOLDERS ------
+[ -z $DATE_FROM_FILENAME ] || mkdir $YEAR-$MONTH-$DAY ; mv $LINE $YEAR-$MONTH-$DAY
+
+cd $YEAR-$MONTH-$DAY
+rename -v 's/-//' ./*
+rename -v 's/-//' ./*
+cd ..
+fi 
+
+fi
+done < list.txt
+
+# ------ DELTE EMPTY FOLDERS ------
+find $1 -type d -empty -delete
+
+# ------ ORDER FOLDERS BY YEAR ------
+while read LINE
+do 
+
+YEAR=$(echo $LINE | cut -c1-4)
+
+if [ -d "$LINE" ] && [[ $LINE =~ $RE ]]; then
+
+# ------ CRIA PASTAS POR ANO E PASSA AS PASTAS NO SEU DEVIDO ANO ------
+[ -z $YEAR ] || mkdir $YEAR ; mv $LINE $YEAR || cp -rfv $LINE $YEAR ; rm -rfv $LINE
+
+fi
+
+done < list.txt
+
+
+
+
